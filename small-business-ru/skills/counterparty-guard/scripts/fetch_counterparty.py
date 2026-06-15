@@ -42,6 +42,7 @@ fetch_counterparty.py — проверка российского контраг
 Без eval/shell. Defensive-парсинг: нет поля -> null, не краш.
 """
 
+import os
 import sys
 import ssl
 import json
@@ -58,9 +59,34 @@ POLL_DELAY = 1.5
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " \
      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
-_SSL = ssl.create_default_context()
-_SSL.check_hostname = False
-_SSL.verify_mode = ssl.CERT_NONE
+
+def _build_ssl_context():
+    """TLS-контекст по умолчанию ПРОВЕРЯЕТ сертификат (защита от MITM).
+
+    Сайты ФНС иногда используют сертификаты Национального УЦ Минцифры,
+    которых нет в системном хранилище. Для этого случая —
+    переменная COUNTERPARTY_CA_BUNDLE с путём к доверенному CA-бандлу
+    (например, russian_trusted_root_ca.cer), верификация остаётся включённой.
+
+    Крайний случай — COUNTERPARTY_INSECURE=1 полностью отключает проверку.
+    Делать так НЕ рекомендуется: открывает канал для подмены данных
+    контрагента. Используйте только в изолированной отладке.
+    """
+    ctx = ssl.create_default_context()
+    ca_bundle = os.environ.get("COUNTERPARTY_CA_BUNDLE")
+    if ca_bundle:
+        ctx.load_verify_locations(cafile=ca_bundle)
+    if os.environ.get("COUNTERPARTY_INSECURE") == "1":
+        sys.stderr.write(
+            "ВНИМАНИЕ: COUNTERPARTY_INSECURE=1 — проверка TLS отключена, "
+            "данные контрагента можно подменить. Используйте только для отладки.\n"
+        )
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+    return ctx
+
+
+_SSL = _build_ssl_context()
 
 
 def _make_opener():
