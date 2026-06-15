@@ -5,16 +5,16 @@
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Версия](https://img.shields.io/badge/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F-alpha-B5491F)](https://github.com/ilyautov/small-business-ru/commits/main)
 [![Скиллов](https://img.shields.io/badge/%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2-34-2D7D4F)](#что-внутри)
-[![Демо](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-ilyautov.github.io-9A3E1A)](https://ilyautov.github.io/small-business-ru/)
+[![Демо](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-aifrontier.tech-9A3E1A)](https://small-business-ru.aifrontier.tech/)
 [![Звёзды](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=social)](https://github.com/ilyautov/small-business-ru/stargazers)
 
 <p align="center">
-  <a href="https://ilyautov.github.io/small-business-ru/">
+  <a href="https://small-business-ru.aifrontier.tech/">
     <img src="assets/social-preview.png" alt="small-business-ru: 34 открытых AI-скилла для малого бизнеса РФ, числа считаются кодом, контрагент проверяется по реестрам" width="760">
   </a>
 </p>
 
-📖 **Сайт и инструкции:** [ilyautov.github.io/small-business-ru](https://ilyautov.github.io/small-business-ru/): как поставить, как пользоваться обычными словами, живое демо. [Про внедрение под ваш бизнес](https://ilyautov.github.io/small-business-ru/vnedrenie.html).
+📖 **Сайт и инструкции:** [small-business-ru.aifrontier.tech](https://small-business-ru.aifrontier.tech/): как поставить, как пользоваться обычными словами, живое демо. [Про внедрение под ваш бизнес](https://small-business-ru.aifrontier.tech/vnedrenie.html).
 
 ## Зачем это нужно
 
@@ -130,7 +130,7 @@
 
 **Можно ли использовать не в Claude, в Cursor, ChatGPT, Codex, Gemini?** Да, для трёх killer-скиллов есть адаптеры в папке [`adapters/`](./adapters/). Тело логики одно, меняется только способ установки.
 
-**Это бесплатно?** Да, открытый код под Apache-2.0. Берите, форкайте, дорабатывайте. Внедрение под вашу отрасль и данные это отдельная услуга, см. [сайт](https://ilyautov.github.io/small-business-ru/vnedrenie.html).
+**Это бесплатно?** Да, открытый код под Apache-2.0. Берите, форкайте, дорабатывайте. Внедрение под вашу отрасль и данные это отдельная услуга, см. [сайт](https://small-business-ru.aifrontier.tech/vnedrenie.html).
 
 **Чем отличается от агрегаторов вроде Контур.Фокуса или Checko?** Скилл их не заменяет, а **сводит несколько источников** и показывает расхождения вместо одной цифры, потому что счётчики у агрегаторов не совпадают. Плюс он встроен в вашего AI-агента и работает в связке с остальной операционкой.
 
