@@ -3,9 +3,9 @@
 > 34 готовых AI-сценария под операционку малого бизнеса РФ для Claude Code, Cursor, Codex, ChatGPT и Gemini: проверка контрагента по ИНН, налоговый календарь УСН, прогноз денег, дебиторка, маржа, найм по ТК РФ. Числа считаются **кодом**, контрагент проверяется по **реальным реестрам** ФНС/ФССП/арбитража, а где данных нет, скилл пишет «не проверено» вместо выдумки.
 
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Версия](https://img.shields.io/badge/версия-alpha-B5491F)](https://github.com/ilyautov/small-business-ru/commits/main)
-[![Скиллов](https://img.shields.io/badge/скиллов-34-2D7D4F)](#что-внутри)
-[![Демо](https://img.shields.io/badge/сайт-ilyautov.github.io-9A3E1A)](https://ilyautov.github.io/small-business-ru/)
+[![Версия](https://img.shields.io/badge/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F-alpha-B5491F)](https://github.com/ilyautov/small-business-ru/commits/main)
+[![Скиллов](https://img.shields.io/badge/%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2-34-2D7D4F)](#что-внутри)
+[![Демо](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-ilyautov.github.io-9A3E1A)](https://ilyautov.github.io/small-business-ru/)
 [![skills.sh](https://skills.sh/b/ilyautov/small-business-ru)](https://skills.sh/ilyautov/small-business-ru)
 [![Звёзды](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=social)](https://github.com/ilyautov/small-business-ru/stargazers)
 
