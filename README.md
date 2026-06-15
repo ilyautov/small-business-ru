@@ -80,6 +80,14 @@
 
 Затем скажите **«настрой меня»**: скилл `smb-onboard` поможет Claude понять ваш бизнес и подключить инструменты. Подключение РФ-сервисов (1С, ЮKassa, Битрикс24, Контур.Диадок, Яндекс 360, Telegram) опционально; без коннекторов скиллы работают через выгрузку CSV/Excel.
 
+### Через skills.sh (любой Claude-агент)
+
+```bash
+npx skills add ilyautov/small-business-ru
+```
+
+CLI [skills.sh](https://skills.sh) клонирует репозиторий и ставит скиллы в каталог вашего агента (Claude Code, Cursor, Codex, Gemini CLI и др.), для Claude Code через симлинк.
+
 ### Другие AI-стеки (Codex, ChatGPT, Gemini, Cursor)
 
 Логика переносима: один источник (`SKILL.md`), а под стеки идут обёртки, тело не форкается. Готовые адаптеры лежат в папке [`adapters/`](./adapters/) (alpha) для трёх killer-скиллов:
