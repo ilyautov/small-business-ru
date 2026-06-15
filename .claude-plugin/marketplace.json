@@ -1,0 +1,19 @@
+{
+  "name": "small-business-ru",
+  "owner": {
+    "name": "Ilya Utov",
+    "email": "ilyautov@gmail.com"
+  },
+  "metadata": {
+    "description": "Открытый набор AI-скиллов для малого бизнеса РФ (Claude Code / Cowork): налоговый штурман УСН, прогноз денег, дебиторка, проверка контрагента по ИНН и ещё ~30 локализованных сценариев. | Open AI skills for Russian small business.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "small-business-ru",
+      "source": "./small-business-ru",
+      "description": "Операционка малого бизнеса РФ: УСН-налоги, деньги, дебиторка, маржа, CRM, контент, проверка контрагента по ИНН. Локализация пака Anthropic small-business + killer-скиллы под РФ.",
+      "category": "business"
+    }
+  ]
+}

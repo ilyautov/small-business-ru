@@ -1,0 +1,22 @@
+small-business-ru
+Copyright 2026 Ilya Utov and contributors
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+---
+
+ATTRIBUTION / АТРИБУЦИЯ
+
+This product includes work derived from the Anthropic "knowledge-work-plugins"
+project — https://github.com/anthropics/knowledge-work-plugins — Copyright
+Anthropic, licensed under the Apache License, Version 2.0.
+
+31 of the 34 skills are localized adaptations (translated into Russian and modified
+for the Russian small-business, tax and legal context — connectors, USN/VAT/contributions,
+Civil & Labor Code, currency) of the upstream "small-business" plugin. The files have
+been changed; each derived SKILL.md carries an in-file notice.
+
+ORIGINAL WORK / ОРИГИНАЛЬНОЕ (not derived from the project above):
+  - skills/counterparty-guard      — проверка контрагента по ИНН (INN counterparty check)
+  - skills/tax-calendar-proactive  — проактивный налоговый штурман УСН (USN tax navigator)
+  - skills/cross-source-verify     — движок круговой сверки (based on knowledge-work-plugins/enterprise-search)

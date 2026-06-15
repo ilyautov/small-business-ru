@@ -1,0 +1,36 @@
+name: CI
+
+# Структурная проверка монорепо ru-business-packs: линт скиллов/паков/маркетплейса
+# + смоук-компиляция Python-скриптов. Содержание (юр/кадровые нормы) не проверяется —
+# это зона эксперта; CI ловит структурные регрессии.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Lint skills, plugins, marketplace
+        run: python3 scripts/lint_skills.py
+
+      - name: Smoke-compile all Python scripts
+        run: |
+          set -e
+          found=$(find . -path ./.git -prune -o -name '*.py' -print)
+          if [ -n "$found" ]; then
+            echo "$found" | xargs -I{} python3 -m py_compile "{}"
+            echo "Все .py скомпилировались без синтаксических ошибок."
+          else
+            echo "Python-скриптов не найдено — пропуск."
+          fi

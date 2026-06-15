@@ -1,0 +1,16 @@
+{
+  "_comment": "RU-локализация. Под российские сервисы публичных MCP-серверов почти нет — url оставлены пустыми как плейсхолдеры под ваш self-hosted коннектор или будущий официальный MCP. Без коннектора скиллы работают через ручную выгрузку CSV/Excel из банк-клиента и учётной системы. Категории соответствуют плейсхолдерам ~~ в теле скиллов (см. RULES.md, раздел 2).",
+  "mcpServers": {
+    "1c":            { "_category": "~~бухгалтерия", "_options": "1С:Бухгалтерия, МойСклад, Контур.Эльба, Контур.Бухгалтерия, СБИС, Моё дело", "type": "http", "url": "" },
+    "moysklad":      { "_category": "~~бухгалтерия", "type": "http", "url": "" },
+    "yookassa":      { "_category": "~~платежи", "_options": "ЮKassa, Тинькофф Касса, СБП, Сбер Эквайринг, Robokassa, банк-выписка", "type": "http", "url": "" },
+    "tinkoff-kassa": { "_category": "~~платежи", "type": "http", "url": "" },
+    "bitrix24":      { "_category": "~~crm", "_options": "Битрикс24, amoCRM, RetailCRM", "type": "http", "url": "" },
+    "amocrm":        { "_category": "~~crm", "type": "http", "url": "" },
+    "diadoc":        { "_category": "~~эдо", "_options": "Контур.Диадок, СБИС ЭДО, nopaper, КЭДО, Сбер Корус", "type": "http", "url": "" },
+    "yandex360":     { "_category": "~~почта / ~~календарь / ~~хранилище", "_options": "Яндекс 360, Mail.ru для бизнеса, VK WorkMail, МойОфис", "type": "http", "url": "" },
+    "telegram":      { "_category": "~~мессенджер", "_options": "Telegram, VK Teams, Пачка, Compass, eXpress", "type": "http", "url": "" },
+    "vistacreate":   { "_category": "~~дизайн", "_options": "VistaCreate (быв. Crello), Supa, Поликрафт, Сберографика", "type": "http", "url": "" },
+    "yandex-metrika":{ "_category": "~~аналитика", "_options": "Яндекс Метрика, Топвизор", "type": "http", "url": "" }
+  }
+}
