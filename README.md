@@ -6,7 +6,7 @@
 [![Версия](https://img.shields.io/badge/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F-alpha-B5491F)](https://github.com/ilyautov/small-business-ru/commits/main)
 [![Скиллов](https://img.shields.io/badge/%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2-34-2D7D4F)](#что-внутри)
 [![Демо](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-aifrontier.tech-9A3E1A)](https://small-business-ru.aifrontier.tech/)
-[![Звёзды](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=social)](https://github.com/ilyautov/small-business-ru/stargazers)
+[![Звёзды](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=flat&label=%D0%B7%D0%B2%D1%91%D0%B7%D0%B4%D1%8B&color=B5491F&logo=github&logoColor=white)](https://github.com/ilyautov/small-business-ru/stargazers)
 
 <p align="center">
   <a href="https://small-business-ru.aifrontier.tech/">
