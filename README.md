@@ -6,7 +6,6 @@
 [![Версия](https://img.shields.io/badge/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F-alpha-B5491F)](https://github.com/ilyautov/small-business-ru/commits/main)
 [![Скиллов](https://img.shields.io/badge/%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2-34-2D7D4F)](#что-внутри)
 [![Демо](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-ilyautov.github.io-9A3E1A)](https://ilyautov.github.io/small-business-ru/)
-[![skills.sh](https://skills.sh/b/ilyautov/small-business-ru)](https://skills.sh/ilyautov/small-business-ru)
 [![Звёзды](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=social)](https://github.com/ilyautov/small-business-ru/stargazers)
 
 <p align="center">
@@ -80,14 +79,6 @@
 ```
 
 Затем скажите **«настрой меня»**: скилл `smb-onboard` поможет Claude понять ваш бизнес и подключить инструменты. Подключение РФ-сервисов (1С, ЮKassa, Битрикс24, Контур.Диадок, Яндекс 360, Telegram) опционально; без коннекторов скиллы работают через выгрузку CSV/Excel.
-
-### Через skills.sh (любой Claude-агент)
-
-```bash
-npx skills add ilyautov/small-business-ru
-```
-
-CLI [skills.sh](https://skills.sh/ilyautov/small-business-ru) кладёт скиллы в каталог вашего агента и регистрирует их в индексе.
 
 ### Другие AI-стеки (Codex, ChatGPT, Gemini, Cursor)
 
