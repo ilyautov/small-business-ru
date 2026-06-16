@@ -161,15 +161,6 @@ CLI [skills.sh](https://skills.sh) клонирует репозиторий и 
 - **Как помочь.** Багрепорты, цифры под сомнением, новые скиллы: [CONTRIBUTING.md](./CONTRIBUTING.md).
 - **Безопасность.** Модель угроз, TLS в сетевых скриптах, как сообщить об уязвимости: [SECURITY.md](./SECURITY.md).
 
-## Команда и благодарности
-
-Сделано в [AI Frontier](https://aifrontier.tech), лаборатории, которая внедряет AI в операционку бизнеса в РФ.
-
-- **Илья Утов**: продукт, упаковка, дистрибуция.
-- **Никита Утов**: killer-скиллы и финансовый расчётный движок (соавтор `counterparty-guard`, автор финансового пака finance-ru).
-
-Хотите попасть в этот список, присылайте PR, см. [CONTRIBUTORS.md](./CONTRIBUTORS.md). Спасибо команде [Anthropic](https://github.com/anthropics/knowledge-work-plugins) за открытый пак, на котором стоит база.
-
 ## Лицензия и атрибуция
 
 Apache-2.0 (см. [`LICENSE`](./LICENSE)). 31 из 34 скиллов это локализованная адаптация открытого пака Anthropic [knowledge-work-plugins / small-business](https://github.com/anthropics/knowledge-work-plugins) (Apache-2.0): структура и сценарии от Anthropic, файлы переписаны под РФ. Оригинальные (не производные): `counterparty-guard`, `tax-calendar-proactive`; `cross-source-verify` адаптирован из `enterprise-search`. Подробности в [`NOTICE`](./NOTICE).
