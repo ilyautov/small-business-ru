@@ -7,13 +7,17 @@ lint_skills.py — структурный линт монорепо ru-business-
     есть description, тело < 500 строк (стандарт качества разд. A);
   • каждый плагин: валидный .claude-plugin/plugin.json с полем name;
   • marketplace.json: валидный JSON; каждый локальный source существует и
-    содержит .claude-plugin/plugin.json; имя в записи == name плагина.
+    содержит .claude-plugin/plugin.json; имя в записи == name плагина;
+  • относительные ссылки во всех отслеживаемых git *.md ведут на существующие
+    файлы (битая ссылка на scripts/reference — ошибка);
+  • каждый скилл skills/<name>/ упомянут в README своего пака.
 
 Запуск:  python3 scripts/lint_skills.py
 Код возврата 1 при любой ошибке (для CI). Предупреждения не валят сборку.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -126,6 +130,65 @@ def lint_marketplace(plugin_names):
         # внешние source (github/url) — не проверяем структуру
 
 
+MD_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
+
+
+def tracked_md_files():
+    """Все отслеживаемые git markdown-файлы (пустой список, если git недоступен)."""
+    try:
+        out = subprocess.run(["git", "-C", ROOT, "ls-files", "*.md"],
+                             capture_output=True, text=True, timeout=10)
+        if out.returncode != 0:
+            return []
+        return out.stdout.splitlines()
+    except Exception:
+        return []
+
+
+def lint_md_links():
+    """Относительная ссылка в markdown обязана вести на существующий файл.
+    Внешние (http/mailto) и якоря не проверяем."""
+    for rel in tracked_md_files():
+        path = os.path.join(ROOT, rel)
+        try:
+            with open(path, encoding="utf-8") as fh:
+                text = fh.read()
+        except OSError:
+            continue
+        # ссылки внутри код-блоков и инлайн-кода — иллюстрации, не проверяем
+        text = re.sub(r"```.*?```", "", text, flags=re.S)
+        text = re.sub(r"`[^`\n]*`", "", text)
+        for target in MD_LINK_RE.findall(text):
+            if "://" in target or target.startswith(("mailto:", "#", "tel:")):
+                continue
+            target = target.split("#", 1)[0]
+            if not target:
+                continue
+            base = ROOT if target.startswith("/") else os.path.dirname(path)
+            resolved = os.path.normpath(os.path.join(base, target.lstrip("/") if target.startswith("/") else target))
+            if not os.path.exists(resolved):
+                err(f"{rel}: битая ссылка «{target}» — файла нет")
+
+
+def lint_readme_skill_sync(pack_dir):
+    """Каждая папка skills/<name> должна быть упомянута в README пака."""
+    readme = os.path.join(pack_dir, "README.md")
+    pack = os.path.basename(pack_dir)
+    skills_dir = os.path.join(pack_dir, "skills")
+    if not os.path.isdir(skills_dir):
+        return
+    if not os.path.isfile(readme):
+        warn(f"{pack}: нет README.md — сверка списка скиллов пропущена")
+        return
+    with open(readme, encoding="utf-8") as fh:
+        text = fh.read()
+    for sk in sorted(os.listdir(skills_dir)):
+        if not os.path.isfile(os.path.join(skills_dir, sk, "SKILL.md")):
+            continue
+        if sk not in text:
+            err(f"{pack}/README.md: скилл «{sk}» существует, но не упомянут в README")
+
+
 def tracked_top_dirs():
     """Топ-уровневые папки, отслеживаемые git. None если git недоступен —
     тогда линтим всё на ФС. Так стрэй-папки вне репо не попадают в линт."""
@@ -154,7 +217,9 @@ def main():
         nm = lint_plugin(pack)
         if nm:
             plugin_names[os.path.basename(pack)] = nm
+        lint_readme_skill_sync(pack)
     lint_marketplace(plugin_names)
+    lint_md_links()
 
     print(f"Проверено паков: {len(packs)}")
     for w in warnings:

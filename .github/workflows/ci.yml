@@ -25,6 +25,14 @@ jobs:
       - name: Lint skills, plugins, marketplace
         run: python3 scripts/lint_skills.py
 
+      - name: Нет закоммиченных артефактов (.DS_Store, __pycache__, .pyc)
+        run: |
+          bad=$(git ls-files | grep -E '\.DS_Store|__pycache__|\.pyc$' || true)
+          if [ -n "$bad" ]; then
+            echo "В репозитории закоммичены артефакты:"; echo "$bad"; exit 1
+          fi
+          echo "Артефактов нет."
+
       - name: Smoke-compile all Python scripts
         run: |
           set -e
