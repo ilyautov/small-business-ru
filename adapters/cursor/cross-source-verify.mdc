@@ -4,6 +4,8 @@ globs:
 alwaysApply: false
 ---
 
+<!-- Синхронизировано со SKILL.md: cross-source-verify 0.2.1 (02.07.2026). При изменении SKILL.md обновляйте адаптер и этот штамп. -->
+
 # Cross-Source Verify — круговая сверка (Cursor)
 
 Скопируй в `.cursor/rules/`. Последняя миля любой многоисточниковой проверки.

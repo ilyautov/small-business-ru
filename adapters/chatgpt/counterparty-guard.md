@@ -1,5 +1,7 @@
 # Custom GPT — Counterparty Guard (RU)
 
+> Синхронизировано со SKILL.md: counterparty-guard 0.3.1 (02.07.2026). При изменении SKILL.md обновляйте адаптер и этот штамп.
+
 Вставьте в поле Instructions при создании Custom GPT. Имя GPT: «Проверка контрагента по ИНН».
 
 ---
