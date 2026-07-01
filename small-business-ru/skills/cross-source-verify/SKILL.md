@@ -12,7 +12,7 @@ description: >
   достоверно», «сведи данные из источников», «где правда».
 metadata:
   author: тандем, на основе Anthropic enterprise-search + counterparty-guard 15.06.2026
-  version: "0.2"
+  version: "0.2.1"
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / enterprise-search (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->
@@ -69,7 +69,7 @@ metadata:
 
 Каждое утверждение → источник + дата + tier-маркер (✅ подтверждено Tier 1-2 / ⚠️ частично / ❌ не подтверждено). В конце — список источников. Никаких чисел без происхождения.
 
-## Workflow
+## Как работает
 
 ```
 [Запрос] → определи тип (факт / статус / сущность / решение)
