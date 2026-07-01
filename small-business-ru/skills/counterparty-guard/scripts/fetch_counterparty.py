@@ -13,12 +13,18 @@ fetch_counterparty.py — проверка российского контраг
       "егрюл":   {...},   # карточка из ЕГРЮЛ (название, ОГРН, директор, адрес, статус)
       "риски":   {...},   # риск-флаги из сервиса «Прозрачный бизнес»
       "финансы": {...},   # бухотчётность из ГИР БО (выручка, прибыль, активы)
+      "фссп":        {...},  # НЕ собирается скриптом — явная заглушка со ссылкой на каскад
+      "суды":        {...},  # НЕ собирается скриптом — явная заглушка со ссылкой на каскад
+      "банкротство": {...},  # НЕ собирается скриптом — явная заглушка со ссылкой на каскад
       "_доступность": {   # что реально отдал каждый источник из текущей среды
           "егрюл":  "...",
           "риски":  "...",
           "финансы":"..."
       }
     }
+Блоки фссп/суды/банкротство скрипт не покрывает (нужен браузер/токен) — они
+возвращаются с явным статусом «не собрано», чтобы досье из трёх источников ФНС
+не принималось за полное: долги и суды — ключевые deal-killer-сигналы каскада.
 
 Три источника ФНС:
   1. ЕГРЮЛ        — egrul.nalog.ru     (требует РФ-IP/браузер, см. ниже)
@@ -56,8 +62,20 @@ TIMEOUT = 25
 RETRIES = 2
 POLL_TRIES = 6
 POLL_DELAY = 1.5
+# Общий бюджет времени на весь скрипт (сек): без него при недоступной сети
+# последовательный обход источников с поллингом висел бы 5+ минут.
+DEADLINE = float(os.environ.get("COUNTERPARTY_DEADLINE", "120"))
+_START = time.monotonic()
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " \
      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+
+
+class DeadlineExceeded(Exception):
+    """Исчерпан общий бюджет времени COUNTERPARTY_DEADLINE."""
+
+
+def _time_left():
+    return DEADLINE - (time.monotonic() - _START)
 
 
 def _build_ssl_context():
@@ -104,16 +122,25 @@ def _http_get(opener, url, referer=None, accept="application/json, text/plain, *
         headers["X-Requested-With"] = "XMLHttpRequest"
     last_err = None
     for attempt in range(RETRIES + 1):
+        left = _time_left()
+        if left <= 0:
+            raise DeadlineExceeded("бюджет времени %.0f с исчерпан" % DEADLINE)
         req = urllib.request.Request(url, headers=headers)
         try:
-            resp = opener.open(req, timeout=TIMEOUT)
+            resp = opener.open(req, timeout=min(TIMEOUT, max(1.0, left)))
             data = resp.read()
             return resp.status, data.decode("utf-8", "replace")
         except urllib.error.HTTPError as e:
+            # 429/5xx — временные (rate-limit/перегрузка): ретраим с backoff;
+            # остальные коды (403, 404 и т.п.) ретраить бессмысленно.
+            if e.code in (429, 500, 502, 503, 504) and attempt < RETRIES:
+                last_err = e
+                time.sleep(0.8 * (2 ** attempt))
+                continue
             return e.code, ""
         except Exception as e:
             last_err = e
-            time.sleep(0.8)
+            time.sleep(0.8 * (2 ** attempt))
     raise last_err if last_err else RuntimeError("unknown http error")
 
 
@@ -160,9 +187,12 @@ def fetch_egrul(opener, inn):
         "X-Requested-With": "XMLHttpRequest",
         "Referer": base,
     }
+    left = _time_left()
+    if left <= 0:
+        return None, "пропущен: бюджет времени исчерпан (COUNTERPARTY_DEADLINE)"
     try:
         req = urllib.request.Request(base, data=body, headers=headers, method="POST")
-        resp = opener.open(req, timeout=TIMEOUT)
+        resp = opener.open(req, timeout=min(TIMEOUT, max(1.0, left)))
         post_json = _safe_json(resp.read().decode("utf-8", "replace"))
     except urllib.error.HTTPError as e:
         return None, "недоступен (HTTP %s на POST)" % e.code
@@ -178,6 +208,8 @@ def fetch_egrul(opener, inn):
 
     result = None
     for _ in range(POLL_TRIES):
+        if _time_left() <= POLL_DELAY:
+            return None, "token получен, но бюджет времени исчерпан (COUNTERPARTY_DEADLINE)"
         time.sleep(POLL_DELAY)
         try:
             status, text = _http_get(
@@ -257,9 +289,13 @@ def fetch_risks(opener, inn):
         "?id=%s&method=get-response&mode=search-ul-result" % search_id
     )
     for _ in range(POLL_TRIES):
+        if _time_left() <= POLL_DELAY:
+            break
         time.sleep(POLL_DELAY)
         try:
             status, text = _http_get(opener, result_url, referer=referer)
+        except DeadlineExceeded:
+            break
         except Exception:
             continue
         last_status = status
@@ -471,9 +507,22 @@ def _strip_tags(s):
     return s.replace("<strong>", "").replace("</strong>", "").strip()
 
 
+def _inn_checksum_ok(inn):
+    """Контрольные числа ИНН по алгоритму ФНС — ловит опечатки до сетевых запросов."""
+    def ctrl(digits, weights):
+        return sum(int(d) * w for d, w in zip(digits, weights)) % 11 % 10
+    if len(inn) == 10:
+        return ctrl(inn, (2, 4, 10, 3, 5, 9, 4, 6, 8)) == int(inn[9])
+    n11 = ctrl(inn, (7, 2, 4, 10, 3, 5, 9, 4, 6, 8))
+    n12 = ctrl(inn, (3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8))
+    return n11 == int(inn[10]) and n12 == int(inn[11])
+
+
 def validate_inn(inn):
     inn = str(inn).strip()
     if not inn.isdigit() or len(inn) not in (10, 12):
+        return None
+    if not _inn_checksum_ok(inn):
         return None
     return inn
 
@@ -484,7 +533,8 @@ def main(argv):
         return 2
     inn = validate_inn(argv[1])
     if inn is None:
-        out = {"ошибка": "Некорректный ИНН (ожидается 10 или 12 цифр)",
+        out = {"ошибка": "Некорректный ИНН: ожидается 10 или 12 цифр с верным "
+                         "контрольным числом (алгоритм ФНС) — вероятна опечатка",
                "ввод": argv[1]}
         sys.stdout.write(json.dumps(out, ensure_ascii=False, indent=2) + "\n")
         return 1
@@ -495,15 +545,28 @@ def main(argv):
     risks_data, risks_av = fetch_risks(opener, inn)
     fin_data, fin_av = fetch_finance(opener, inn)
 
+    # Блоки, которые скрипт НЕ собирает, но которые обязательны для решения о
+    # сделке — возвращаем явно, чтобы досье не выглядело полным без них.
+    ne_sobrano = ("не собрано скриптом — обязательный шаг каскада, "
+                  "см. SKILL.md (браузер/агрегаторы)")
     result = {
         "инн": inn,
         "егрюл": egrul_data,
         "риски": risks_data,
         "финансы": fin_data,
+        "фссп": {"статус": ne_sobrano,
+                 "источник": "fssp.gov.ru — исполнительные производства (долги)"},
+        "суды": {"статус": ne_sobrano,
+                 "источник": "kad.arbitr.ru — картотека арбитражных дел"},
+        "банкротство": {"статус": ne_sobrano,
+                        "источник": "bankrot.fedresurs.ru — ЕФРСБ"},
         "_доступность": {
             "егрюл": egrul_av,
             "риски": risks_av,
             "финансы": fin_av,
+            "фссп": "скриптом не покрыто",
+            "суды": "скриптом не покрыто",
+            "банкротство": "скриптом не покрыто",
         },
     }
     sys.stdout.write(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
