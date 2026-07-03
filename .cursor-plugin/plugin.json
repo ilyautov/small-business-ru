@@ -1,0 +1,12 @@
+{
+  "name": "small-business-ru",
+  "displayName": "Small Business RU",
+  "version": "0.4.0-ru.1",
+  "description": "Operational playbooks for Russian small business: USN tax advances, cash flow, receivables, margin, CRM, contracts under the Civil Code, hiring under the Labor Code, counterparty check by INN. Auto-activates on Russian small-business finance, sales, and compliance requests.",
+  "author": {
+    "name": "Ilya Utov",
+    "email": "ilyautov@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["smb", "малый бизнес", "россия", "усн", "ндс", "финансы", "маркетинг", "найм", "all-in-one"]
+}
