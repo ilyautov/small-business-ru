@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Открытый набор из 34 AI-скиллов для малого бизнеса РФ (Claude Code / Cowork): налоговый штурман УСН, прогноз денег, дебиторка, проверка контрагента по ИНН и другие локализованные сценарии. | Open AI skills for Russian small business.",
-    "version": "0.3.1-ru.1"
+    "version": "0.4.0-ru.1"
   },
   "plugins": [
     {
@@ -14,6 +14,18 @@
       "source": "./small-business-ru",
       "description": "Операционка малого бизнеса РФ: УСН-налоги, деньги, дебиторка, маржа, CRM, контент, проверка контрагента по ИНН. Локализация пака Anthropic small-business + killer-скиллы под РФ.",
       "category": "business"
+    },
+    {
+      "name": "humanizer-ru",
+      "source": { "source": "github", "repo": "ilyautov/humanizer-ru", "ref": "v3.12.0" },
+      "description": "Убивает запах нейросети в русском тексте: 52 паттерна в 12 категориях, 20 жёстких банов, 3 режима, калибровка голоса, quad-pass аудит. Пригодится, чтобы очеловечить ответы клиентам, посты и письма из контентных скиллов пака. | Kills AI smell in Russian text.",
+      "category": "writing"
+    },
+    {
+      "name": "marketplaces-mcp-ru",
+      "source": { "source": "github", "repo": "ilyautov/marketplaces-mcp-ru", "ref": "v0.3.2" },
+      "description": "Два MCP-сервера над Seller API Wildberries (307 методов) и Ozon (441) + Ozon Performance (45): продажи, остатки, цены, финансы, отзывы напрямую из API, safety-гейт на запись, мультикабинет. | Wildberries & Ozon Seller APIs over MCP.",
+      "category": "productivity"
     }
   ]
 }

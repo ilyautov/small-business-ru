@@ -55,6 +55,30 @@ def parse_frontmatter(path):
     return fm, len(lines)
 
 
+def check_inline_yaml_traps(skill_md, rel):
+    """Ловит инлайн-скаляры frontmatter с ': ' (двоеточие-пробел) в незакавыченном
+    значении — это невалидный YAML: строгие парсеры (skills.sh, Codex, Gemini)
+    молча роняют такой скилл. Лечится блочным скаляром '>' или кавычками.
+    Проверка на голом stdlib (без YAML-депа)."""
+    with open(skill_md, encoding="utf-8") as fh:
+        lines = fh.read().splitlines()
+    if not lines or lines[0].strip() != "---":
+        return
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            break
+        line = lines[i]
+        if not line or line[0].isspace() or ":" not in line:
+            continue  # не верхнеуровневый ключ (вложенное/продолжение блока)
+        _, _, val = line.partition(":")
+        val = val.strip()
+        if not val or val[0] in ">|\"'":
+            continue  # блочный скаляр или закавычено — безопасно
+        if ": " in val:
+            err(f"{rel}: инлайн-описание с ': ' (невалидный YAML) — "
+                f"заверните значение в блок '>' или кавычки")
+
+
 def lint_skill(skill_md, expected_name):
     rel = os.path.relpath(skill_md, ROOT)
     fm, nlines = parse_frontmatter(skill_md)
@@ -70,6 +94,7 @@ def lint_skill(skill_md, expected_name):
         err(f"{rel}: нет поля description")
     if nlines > MAX_LINES:
         err(f"{rel}: {nlines} строк > {MAX_LINES} (стандарт A)")
+    check_inline_yaml_traps(skill_md, rel)
 
 
 def lint_plugin(pack_dir):
