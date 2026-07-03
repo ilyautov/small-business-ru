@@ -111,6 +111,32 @@ npx skills add ilyautov/small-business-ru
 
 CLI [skills.sh](https://skills.sh) клонирует репозиторий и ставит скиллы в каталог вашего агента (Claude Code, Cursor, Codex, Gemini CLI и др.), для Claude Code через симлинк.
 
+### Claude.ai (веб-интерфейс)
+
+Claude.ai принимает скиллы по одному: один ZIP — один скилл с `SKILL.md` в корне архива. Для зонтичного пака из 34 скиллов загрузка идёт по той же схеме поштучно:
+
+1. Склонируйте репозиторий и заархивируйте нужный скилл из `small-business-ru/skills/`, например `counterparty-guard`:
+
+   ```bash
+   git clone --depth 1 https://github.com/ilyautov/small-business-ru
+   cd small-business-ru/small-business-ru/skills
+   zip -r counterparty-guard.zip counterparty-guard/
+   ```
+
+2. Откройте Claude.ai → **Settings** → **Capabilities** → **Skills**.
+3. Нажмите **Upload skill** и выберите архив.
+4. Повторите для остальных скиллов, которые нужны (или начните с `smb-router` — он маршрутизирует к остальным по обычной речи).
+
+> Если Claude.ai не принимает архив из-за лишней вложенной папки, зайдите внутрь неё и заархивируйте содержимое ещё раз, чтобы `SKILL.md` оказался в корне ZIP.
+
+### Организации (Enterprise и Team)
+
+Администраторы Claude for Work раскатывают скиллы централизованно через workspace skill library, и они становятся доступны всей команде без индивидуальной загрузки каждым сотрудником. Загрузите ZIP нужного скилла (см. выше) в **Admin Console → Workspace Skills → Add skill**. Для полного пака повторите на каждый из 34 скиллов или на те, что нужны команде.
+
+### API (`/v1/messages` и аналоги)
+
+При вызове API скилл передаётся параметром `container.skills`: укажите путь к нужному скиллу из `small-business-ru/skills/` (например `small-business-ru/skills/tax-calendar-proactive`). Детали формата — в документации вашего клиента Anthropic API.
+
 ### Другие AI-стеки (Codex, ChatGPT, Gemini, Cursor)
 
 Логика переносима: один источник (`SKILL.md`), а под стеки идут обёртки, тело не форкается. Готовые адаптеры лежат в папке [`adapters/`](./adapters/) (alpha) для трёх killer-скиллов:
@@ -123,6 +149,18 @@ CLI [skills.sh](https://skills.sh) клонирует репозиторий и 
 | **Cursor / Windsurf** | скопировать [`adapters/cursor/*.mdc`](./adapters/cursor/) в `.cursor/rules/` |
 
 Скрипты расчёта (`fetch_counterparty.py`, `tax_calc.py`) работают в Claude Code, Codex, Gemini CLI и Cursor. В чистом ChatGPT без Code Interpreter расчёт идёт по формулам в промпте либо просит принести выгрузку.
+
+### Другие агенты (общий стандарт SKILL.md)
+
+Формат Agent Skills стал кросс-платформенным, поэтому пак работает и за пределами четырёх стеков с готовыми адаптерами выше. Каждый из 34 скиллов — это папка с `SKILL.md` в `small-business-ru/skills/<имя-скилла>/`; агенты, читающие этот формат нативно, просто ждут её в своём каталоге скиллов:
+
+| Как подключается | Агенты | Что делать |
+|---|---|---|
+| Читают `SKILL.md` нативно | GitHub Copilot, Cline, Roo Code, Goose, OpenCode | Скопировать нужную папку из `small-business-ru/skills/` в каталог скиллов агента (например `.agents/skills/`) |
+| Конвертация инсталлером | Windsurf, Trae, Junie | Поставить через их установщик скиллов, указав репозиторий `ilyautov/small-business-ru` |
+| Ручная вставка | Zed, Aider, Continue.dev | Вставить тело `SKILL.md` нужного скилла в файл правил или инструкций агента |
+
+Универсальный путь: скопируйте папку скилла целиком (не только `SKILL.md` — вместе с ней едут скрипты расчёта, если они есть) в каталог, который агент сканирует, и перезапустите его. Триггеры активации те же, что в Claude.
 
 ## Использование
 
