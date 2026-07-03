@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как проверить контрагента по ИНН перед сделкой — small-business-ru</title>
+<meta name="description" content="Как проверить контрагента по ИНН перед предоплатой или отсрочкой: ЕГРЮЛ, ФССП, суды, банкротства. Почему нельзя верить одному агрегатору и как это делает скилл counterparty-guard.">
+<meta property="og:title" content="Как проверить контрагента по ИНН перед сделкой">
+<meta property="og:description" content="ЕГРЮЛ, ФССП, суды, банкротства — что смотреть руками и как counterparty-guard сводит это в светофор риска за минуты.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://small-business-ru.aifrontier.tech/kak-proverit-kontragenta-po-inn.html">
+<meta property="og:image" content="https://small-business-ru.aifrontier.tech/assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://small-business-ru.aifrontier.tech/kak-proverit-kontragenta-po-inn.html">
+<link rel="icon" type="image/png" href="assets/logo-mark.png">
+<link rel="apple-touch-icon" href="assets/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="small-business-ru, на главную">
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      small-business-ru <small>· AI Frontier</small>
+    </a>
+    <nav class="nav-links" aria-label="Основная навигация">
+      <a href="index.html#how">Как это работает</a>
+      <a href="index.html#killer">Killer-скиллы</a>
+      <a href="index.html#use">Как пользоваться</a>
+      <a href="index.html#install">Установка</a>
+      <a href="vnedrenie.html">Внедрение</a>
+      <a class="btn btn-primary" href="https://github.com/ilyautov/small-business-ru">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">проверка контрагента · до сделки</div>
+      <h1>Как проверить контрагента <span class="accent">по ИНН</span> перед сделкой</h1>
+      <p class="sub" style="max-width:62ch">Отгрузили в долг, внесли предоплату, подписали годовой договор — а через месяц выяснилось, что контрагент в банкротстве, а директор дисквалифицирован. Обиднее всего, что это почти всегда уже было открыто. Разбираемся, где смотреть руками и как то же самое за минуты делает скилл <b class="mono">counterparty-guard</b>.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/ilyautov/small-business-ru">★ Открыть на GitHub</a>
+        <a class="btn btn-ghost" href="index.html">← Назад к обзору пака</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="kicker">один контрагент · пять агрегаторов</div>
+      <h2>Почему нельзя верить одному агрегатору</h2>
+      <p class="proof-lead">Прогнали одну и ту же компанию через пять бесплатных сервисов проверки контрагентов. Вот сколько судебных дел насчитал каждый:</p>
+      <div class="nums" aria-label="Примерно 500, 1000 и 1500, данные расходятся">
+        <span class="n">~500</span><span class="ne">≠</span>
+        <span class="n">~1000</span><span class="ne">≠</span>
+        <span class="n">~1500</span>
+      </div>
+      <p class="small">Методики подсчёта дел у сервисов разные, поэтому число судов разошлось почти втрое. Выручка и число исполнительных производств при этом совпали у всех пяти. Цифры округлены намеренно — проверяйте на своих контрагентах сами.</p>
+      <p class="verdict">Факт — то, что совпало у ≥3 источников. Расхождение — <b>флаг</b>, а не повод выбрать цифру покрасивее.</p>
+    </div>
+  </section>
+
+  <!-- MANUAL HOW-TO -->
+  <section class="s" id="manual">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Что смотреть руками, если делаете это сами</h2>
+        <p>Ниже — открытые государственные и общедоступные коммерческие реестры, без платного доступа.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>ЕГРЮЛ и «Прозрачный бизнес» на сайте ФНС</h3>
+            <p>Статус компании, директор, юридический адрес, признаки массовости и недостоверности сведений, налоговая задолженность. Первое, что смотрят банки перед открытием счёта или отсрочкой.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Картотека арбитражных дел (kad.arbitr.ru)</h3>
+            <p>Кто судится с контрагентом и на какие суммы — истец он или ответчик. Один суд ни о чём не говорит, а системные тяжбы с поставщиками — уже сигнал.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>ФССП — банк исполнительных производств</h3>
+            <p>Есть ли непогашенные долги, переданные приставам, и на какую сумму. Хороший маркер реальной, а не бумажной платёжеспособности.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>ЕФРСБ — реестр банкротств</h3>
+            <p>Не начата ли процедура наблюдения или конкурсного производства. Если начата — предоплата исключена, разговор только про отсрочку и обеспечение.</p>
+          </div>
+        </div>
+      </div>
+      <p class="small" style="color:var(--mute);margin-top:20px;max-width:62ch">Руками это 15-20 минут на одного контрагента, если знать, куда смотреть, и уметь читать карточки арбитража. Проблема обычно не в нехватке данных, а в том, что их никто не сводит в одну картину до того, как деньги уже ушли.</p>
+    </div>
+  </section>
+
+  <!-- HOW SKILL HELPS -->
+  <section class="s alt killer" id="skill">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Как это делает counterparty-guard</h2>
+        <p>Тот же список источников, но за минуты и с явным указанием, что подтверждено, а что нет.</p>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <span class="tl" aria-hidden="true"><i class="g"></i><i class="a"></i><i class="r"></i></span>
+          <h3>Быстрый quick-scan</h3>
+          <p>Сначала проверяет deal-killer-сигналы: ликвидация, банкротство, недостоверность ЕГРЮЛ, дисквалификация директора, крупные долги. Сработало — сразу 🔴, дальше можно не собирать.</p>
+        </div>
+        <div class="card">
+          <span class="tl" aria-hidden="true"><i class="g"></i><i class="a"></i><i class="r"></i></span>
+          <h3>Полное досье по запросу</h3>
+          <p>Если quick-scan не 🔴 — собирает полную картину: финансы, суды, ФССП, банкротства, госконтракты. Каждая цифра идёт с источником и датой, без исключений.</p>
+        </div>
+        <div class="card">
+          <span class="tl" aria-hidden="true"><i class="g"></i><i class="a"></i><i class="r"></i></span>
+          <h3>«Не проверено» вместо догадки</h3>
+          <p>Источник недоступен или данные принесены пользователем «на слово» — скилл честно так и помечает. Цифра без происхождения не выдаётся вообще.</p>
+        </div>
+      </div>
+      <div class="demos" style="margin-top:32px">
+        <figure class="demo">
+          <img src="assets/demo_counterparty-guard.gif" alt="Демонстрация counterparty-guard: проверка контрагента по ИНН со сведением реестров в светофор риска" loading="lazy" width="1080" height="1080">
+          <figcaption><b>counterparty-guard</b> — ввели ИНН, на выходе светофор риска с причиной и источниками.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONEST CAVEAT -->
+  <section class="s" id="caveat">
+    <div class="wrap">
+      <div class="card" style="max-width:74ch">
+        <h3>Честно про ограничения</h3>
+        <p>Светофор риска — это оценка по открытым данным на конкретную дату, а не юридическая или кредитная гарантия. Часть источников (например картотека арбитража) доступна через браузер, а не напрямую скриптом, поэтому иногда сбор занимает больше пары минут. Финальное решение — предоплата, отсрочка или отказ от сделки — всегда остаётся за собственником, не за инструментом.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-LINK TEASER -->
+  <section class="s alt">
+    <div class="wrap">
+      <div class="teaser">
+        <div class="t-txt">
+          <h3>Контрагент проверен — дальше налоги</h3>
+          <p>Если сделка идёт, следующий частый вопрос собственника — сроки и пороги по УСН.</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="sroki-uplaty-usn-2026.html">Сроки УСН 2026 →</a>
+          <a class="btn btn-ghost" href="nds-usn-porog-20-millionov.html">Порог НДС 20 млн →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE CTA -->
+  <section class="s" id="opensource">
+    <div class="wrap">
+      <div class="oss">
+        <div class="kicker">открытый проект</div>
+        <h2>counterparty-guard — один из 34 скиллов пака</h2>
+        <p>Открытый код, Apache-2.0. Поставьте пак за минуту и скажите обычными словами «проверь контрагента по ИНН 7700000000» — остальное сделает скилл.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/ilyautov/small-business-ru">★ Открыть на GitHub</a>
+          <a class="btn btn-ghost" href="index.html">← Весь пак на главной</a>
+        </div>
+        <div class="repo-line">github.com/ilyautov/small-business-ru</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="alpha">alpha</span>
+      &nbsp; Помощник, а не консультация. Налоговые/правовые расчёты сверяйте со специалистом.
+    </div>
+    <div>
+      <a href="vnedrenie.html">Внедрение</a> ·
+      <a href="https://github.com/ilyautov/small-business-ru">GitHub</a> ·
+      <a href="https://t.me/gorilla_under_hood">Telegram</a> ·
+      Сделано в <a href="https://aifrontier.tech">AI Frontier</a> · Apache-2.0
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
