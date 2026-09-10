@@ -10,7 +10,8 @@ lint_skills.py — структурный линт монорепо ru-business-
     содержит .claude-plugin/plugin.json; имя в записи == name плагина;
   • относительные ссылки во всех отслеживаемых git *.md ведут на существующие
     файлы (битая ссылка на scripts/reference — ошибка);
-  • каждый скилл skills/<name>/ упомянут в README своего пака.
+  • каждый скилл skills/<name>/ упомянут в README своего пака;
+  • одна триггерная фраза не заявлена сразу двумя скиллами (храповик, см. ниже).
 
 Запуск:  python3 scripts/lint_skills.py
 Код возврата 1 при любой ошибке (для CI). Предупреждения не валят сборку.
@@ -155,6 +156,137 @@ def lint_marketplace(plugin_names):
         # внешние source (github/url) — не проверяем структуру
 
 
+# --- триггерные коллизии -------------------------------------------------
+#
+# description это ЕДИНСТВЕННОЕ, что агент читает про скилл ДО активации:
+# по прогрессивной загрузке спеки Agent Skills на старте грузятся только
+# name + description, и решение «звать или не звать» принимается по ним.
+# Поэтому одна и та же фраза в описаниях двух скиллов не «слегка мешает»,
+# а делает выбор между ними случайным: сработать может тот, что тоньше.
+#
+# Храповик. Коллизии, которые уже есть, перечислены ниже и печатаются
+# предупреждением, чтобы не валить сборку задним числом. ЛЮБАЯ НОВАЯ пара
+# роняет линт. Список сокращается по мере разведения скиллов; строку из него
+# удаляют вместе с самой коллизией, а не «чтобы стало тихо».
+KNOWN_TRIGGER_COLLISIONS = {
+    ("business-pulse", "monday-brief"),
+    ("cash-flow-snapshot", "plan-payroll"),
+    ("close-month", "month-end-prep"),
+    ("content-strategy", "sales-brief"),
+    ("contract-review", "review-contract"),
+    ("customer-pulse", "customer-pulse-check"),
+    ("margin-analyzer", "price-check"),
+    ("smb-onboard", "smb-router"),
+    ("tax-prep", "tax-season-organizer"),
+}
+
+# Закавыченное, что триггером не является: имена сервисов, режимов и объектов
+# внутри описания. Совпадение по ним ничего не говорит о подборе скилла.
+NOT_A_TRIGGER = {
+    "мой налог", "доходы", "доходы минус расходы", "за себя",
+}
+
+MIN_TRIGGER_LEN = 6
+
+
+def _description_of(skill_md):
+    """Полный текст description, включая блочные скаляры '>' и '|'.
+
+    parse_frontmatter() берёт только первую строку ключа, а описания здесь
+    почти все многострочные, поэтому нужен отдельный разбор.
+    """
+    with open(skill_md, encoding="utf-8") as fh:
+        lines = fh.read().splitlines()
+    if not lines or lines[0].strip() != "---":
+        return ""
+    out, collecting = [], False
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        if collecting:
+            if line and not line[0].isspace():
+                break  # начался следующий верхнеуровневый ключ
+            out.append(line.strip())
+            continue
+        if line.startswith("description:"):
+            collecting = True
+            out.append(line.partition(":")[2].strip().lstrip(">|").strip())
+    return " ".join(x for x in out if x).strip().strip('"').strip("'")
+
+
+# Маркер списка триггеров без кавычек: «Запускай, когда пользователь упоминает:
+# аванс по УСН, налог за квартал, ...». Так оформлены 4 описания из 34, и без
+# этого разбора налоговая пара коллизий не видна вовсе.
+TRIGGER_MARKER_RE = re.compile(
+    r"(?:Триггеры|Запускай[^:.]{0,40}|Используй[^:.]{0,40})\s*[:—-]\s*([^.]{0,400})",
+    re.I,
+)
+
+
+def _norm_phrase(raw):
+    norm = " ".join(raw.lower().split()).strip(" .,;:!?«»\"'")
+    if len(norm) < MIN_TRIGGER_LEN or norm in NOT_A_TRIGGER:
+        return None
+    return norm
+
+
+def _trigger_phrases(description):
+    """Фразы, которыми описание объявляет свои триггеры.
+
+    Два источника, потому что в репо прижились две формы записи: закавыченная
+    («проверь договор») и перечисление через запятую после маркера. Вторая форма
+    даёт шум из обычной прозы, но коллизия возникает только на СОВПАДЕНИИ фразы
+    у двух скиллов, а случайная проза совпадает редко.
+    """
+    phrases = set()
+    for raw in re.findall(r'[«"]([^»"]{%d,60})[»"]' % MIN_TRIGGER_LEN, description):
+        norm = _norm_phrase(raw)
+        if norm:
+            phrases.add(norm)
+    for chunk in TRIGGER_MARKER_RE.findall(description):
+        for raw in re.split(r"[,;]", chunk):
+            norm = _norm_phrase(raw)
+            if norm and len(norm) <= 60:
+                phrases.add(norm)
+    return phrases
+
+
+def lint_trigger_collisions(pack_dirs):
+    owners = {}
+    for pack in pack_dirs:
+        skills_dir = os.path.join(pack, "skills")
+        if not os.path.isdir(skills_dir):
+            continue
+        for sk in sorted(os.listdir(skills_dir)):
+            smd = os.path.join(skills_dir, sk, "SKILL.md")
+            if not os.path.isfile(smd):
+                continue
+            for phrase in _trigger_phrases(_description_of(smd)):
+                owners.setdefault(phrase, []).append(sk)
+
+    seen = {}
+    for phrase, skills in sorted(owners.items()):
+        if len(skills) < 2:
+            continue
+        for i in range(len(skills)):
+            for j in range(i + 1, len(skills)):
+                seen.setdefault(tuple(sorted((skills[i], skills[j]))), []).append(phrase)
+
+    for pair, phrases in sorted(seen.items()):
+        listed = ", ".join(f"«{p}»" for p in sorted(phrases))
+        if pair in KNOWN_TRIGGER_COLLISIONS:
+            warn(f"триггеры пересекаются (принятый долг): {pair[0]} и {pair[1]} — {listed}")
+        else:
+            err(f"НОВАЯ триггерная коллизия: {pair[0]} и {pair[1]} заявляют {listed}. "
+                f"Агент выбирает между ними вслепую: разведите формулировки "
+                f"или объедините скиллы")
+
+    stale = KNOWN_TRIGGER_COLLISIONS - set(seen)
+    for pair in sorted(stale):
+        warn(f"коллизия {pair[0]}/{pair[1]} расшита: удалите пару из "
+             f"KNOWN_TRIGGER_COLLISIONS в scripts/lint_skills.py")
+
+
 MD_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 
 
@@ -244,6 +376,7 @@ def main():
             plugin_names[os.path.basename(pack)] = nm
         lint_readme_skill_sync(pack)
     lint_marketplace(plugin_names)
+    lint_trigger_collisions(packs)
     lint_md_links()
 
     print(f"Проверено паков: {len(packs)}")
