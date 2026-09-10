@@ -164,21 +164,10 @@ def lint_marketplace(plugin_names):
 # Поэтому одна и та же фраза в описаниях двух скиллов не «слегка мешает»,
 # а делает выбор между ними случайным: сработать может тот, что тоньше.
 #
-# Храповик. Коллизии, которые уже есть, перечислены ниже и печатаются
-# предупреждением, чтобы не валить сборку задним числом. ЛЮБАЯ НОВАЯ пара
-# роняет линт. Список сокращается по мере разведения скиллов; строку из него
-# удаляют вместе с самой коллизией, а не «чтобы стало тихо».
-KNOWN_TRIGGER_COLLISIONS = {
-    ("business-pulse", "monday-brief"),
-    ("cash-flow-snapshot", "plan-payroll"),
-    ("close-month", "month-end-prep"),
-    ("content-strategy", "sales-brief"),
-    ("contract-review", "review-contract"),
-    ("customer-pulse", "customer-pulse-check"),
-    ("margin-analyzer", "price-check"),
-    ("smb-onboard", "smb-router"),
-    ("tax-prep", "tax-season-organizer"),
-}
+# Долг расшит 10.09.2026: набор пуст, ЛЮБАЯ коллизия теперь роняет линт.
+# Если пара появляется снова, чините описание, а не пополняйте этот набор:
+# он существует только чтобы вводить исключение осознанно и на время.
+KNOWN_TRIGGER_COLLISIONS = set()
 
 # Закавыченное, что триггером не является: имена сервисов, режимов и объектов
 # внутри описания. Совпадение по ним ничего не говорит о подборе скилла.
@@ -249,6 +238,36 @@ def _trigger_phrases(description):
             if norm and len(norm) <= 60:
                 phrases.add(norm)
     return phrases
+
+
+# Командная форма скилла. В первоисточнике (anthropics/knowledge-work-plugins,
+# пак small-business) скиллы делятся на два вида: обычные, которые ловят
+# естественную формулировку и несут в описании список «Use when...», и командные,
+# которые вызывают по имени. У командных описание намеренно КОРОТКОЕ и без единой
+# триггерной фразы, и держится это на честном слове автора. При локализации фразы
+# дописали всем пятнадцати командным скиллам, и оттуда взялись все девять
+# коллизий: командный близнец начинал спорить за формулировку со своим же
+# обычным. Признак командной формы здесь один, allowed-tools во frontmatter, и
+# он не абсолютный: обычный скилл тоже вправе ограничить инструменты. Поэтому
+# предупреждение, а не ошибка.
+TRIGGER_DECL_RE = re.compile(r"Триггер|Запускай, когда|Используй, когда|Срабатывает, когда", re.I)
+
+
+def lint_command_form_triggers(pack_dirs):
+    for pack in pack_dirs:
+        skills_dir = os.path.join(pack, "skills")
+        if not os.path.isdir(skills_dir):
+            continue
+        for sk in sorted(os.listdir(skills_dir)):
+            smd = os.path.join(skills_dir, sk, "SKILL.md")
+            if not os.path.isfile(smd):
+                continue
+            fm, _ = parse_frontmatter(smd)
+            if not fm or "allowed-tools" not in fm:
+                continue
+            if TRIGGER_DECL_RE.search(_description_of(smd)):
+                warn(f"{sk}: командная форма (allowed-tools), но описание заявляет "
+                     f"триггерные фразы — их ловит обычный скилл, а этот вызывают по имени")
 
 
 def lint_trigger_collisions(pack_dirs):
@@ -377,6 +396,7 @@ def main():
         lint_readme_skill_sync(pack)
     lint_marketplace(plugin_names)
     lint_trigger_collisions(packs)
+    lint_command_form_triggers(packs)
     lint_md_links()
 
     print(f"Проверено паков: {len(packs)}")
