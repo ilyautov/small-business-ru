@@ -224,3 +224,19 @@ Apache-2.0 (см. [`LICENSE`](./LICENSE)). 31 из 34 скиллов это ло
 ---
 
 **small-business-ru** это открытый набор AI-скиллов для малого бизнеса в России: проверка контрагента по ИНН, налоговый календарь УСН на 2026, прогноз денежного потока, дебиторка, маржа, найм по ТК РФ. Бесплатный open-source для Claude Code, Cursor, Codex, ChatGPT и Gemini, а не онлайн-сервис «в один клик». Числа считаются кодом, данные берутся из реальных реестров ФНС/ФССП/арбитража.
+
+---
+
+## Кто это сделал
+
+[Илья Утов](https://github.com/ilyautov), лаборатория [AI Frontier](https://aifrontier.tech). Как эти инструменты устроены внутри, пишу в [Telegram](https://t.me/gorilla_under_hood) и [LinkedIn](https://www.linkedin.com/in/ilyautov).
+
+**Рядом стоят:**
+
+- [**humanizer-ru**](https://github.com/ilyautov/humanizer-ru): убирает следы нейросети из русского текста
+- [**marketplaces-mcp-ru**](https://github.com/ilyautov/marketplaces-mcp-ru): Wildberries, Ozon, Яндекс Маркет и Авито прямо из агента
+- [**consilium-principis**](https://github.com/ilyautov/consilium-principis): совет мыслителей, где каждая цитата сверяется дословно
+- [**hefest**](https://github.com/ilyautov/hefest): химическая безопасность завода, целиком офлайн
+- [**cordon**](https://github.com/ilyautov/cordon): детерминированный слой между недоверенным контентом и действиями агента
+
+Все проекты: [github.com/ilyautov](https://github.com/ilyautov). Пригодилось, поставьте звезду: по ней это находят другие.
