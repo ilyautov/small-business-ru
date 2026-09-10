@@ -17,6 +17,15 @@
   </a>
 </p>
 
+**Быстрый старт**, в Claude Code или Cowork:
+
+```text
+/plugin marketplace add ilyautov/small-business-ru
+/plugin install small-business-ru@small-business-ru
+```
+
+Любой другой агент ставится одной командой `npx skills add ilyautov/small-business-ru`. Подробности в разделе [«Установка»](#установка).
+
 📖 **Сайт и инструкции:** [small-business-ru.aifrontier.tech](https://small-business-ru.aifrontier.tech/): как поставить, как пользоваться обычными словами, живое демо. [Про внедрение под ваш бизнес](https://small-business-ru.aifrontier.tech/vnedrenie.html).
 
 ## Зачем это нужно
