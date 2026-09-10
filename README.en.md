@@ -186,3 +186,19 @@ Apache-2.0 (see [`LICENSE`](./LICENSE)). 31 of the 34 skills are a localized ada
 ---
 
 **small-business-ru** is an open set of AI skills for small business in Russia: checking a counterparty by tax ID, a 2026 УСН tax calendar, cash-flow forecasting, receivables, margin, hiring under Russian labor law. Free and open source for Claude Code, Cursor, Codex, ChatGPT and Gemini — not a one-click online service. Numbers are computed by code, data comes from real government registries (tax service, bailiffs, arbitration courts).
+
+---
+
+## Who built this
+
+[Ilya Utov](https://github.com/ilyautov), the [AI Frontier](https://aifrontier.tech) lab. I write about how these tools work inside on [Telegram](https://t.me/gorilla_under_hood) and [LinkedIn](https://www.linkedin.com/in/ilyautov).
+
+**Nearby:**
+
+- [**humanizer-ru**](https://github.com/ilyautov/humanizer-ru): strips the AI fingerprint out of Russian text
+- [**marketplaces-mcp-ru**](https://github.com/ilyautov/marketplaces-mcp-ru): Wildberries, Ozon, Yandex Market and Avito straight from the agent
+- [**consilium-principis**](https://github.com/ilyautov/consilium-principis): a board of thinkers where every quote is checked word for word
+- [**hefest**](https://github.com/ilyautov/hefest): chemical safety for an industrial plant, kept inside the plant's own network
+- [**cordon**](https://github.com/ilyautov/cordon): a deterministic layer between untrusted content and agent actions
+
+Everything else: [github.com/ilyautov](https://github.com/ilyautov). Useful? Star it, that is how other people find it.
