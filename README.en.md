@@ -10,6 +10,7 @@
 [![Skills](https://img.shields.io/badge/%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2-34-2D7D4F)](#whats-in-the-umbrella-pack)
 [![Demo](https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-aifrontier.tech-9A3E1A)](https://small-business-ru.aifrontier.tech/)
 [![Stars](https://img.shields.io/github/stars/ilyautov/small-business-ru?style=flat&label=%D0%B7%D0%B2%D1%91%D0%B7%D0%B4%D1%8B&color=B5491F&logo=github&logoColor=white)](https://github.com/ilyautov/small-business-ru/stargazers)
+[![Installs](https://skills.sh/b/ilyautov/small-business-ru)](https://skills.sh/ilyautov/small-business-ru)
 
 <p align="center">
   <a href="https://small-business-ru.aifrontier.tech/">
