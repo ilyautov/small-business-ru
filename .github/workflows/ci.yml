@@ -44,5 +44,8 @@ jobs:
             echo "Python-скриптов не найдено — пропуск."
           fi
 
+      - name: Trigger-eval — описания различают скиллы
+        run: python3 eval/run_triggers.py
+
       - name: Eval — контрольные точки калькуляторов
         run: python3 eval/run_eval.py
