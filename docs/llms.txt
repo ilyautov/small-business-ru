@@ -1,0 +1,23 @@
+# small-business-ru
+
+> AI-напарник по операционке малого бизнеса в России: 34 открытых скилла под деньги, клиентов, налоги УСН, договоры и найм.
+
+Проект лаборатории AI Frontier. Лицензия Apache-2.0, код: https://github.com/ilyautov/small-business-ru
+Граница системы: помощник, а не консультация. Налоговые и правовые расчёты требуют сверки с актуальными нормами.
+
+## Страницы
+
+- [Обзор пака](https://small-business-ru.aifrontier.tech/): что умеют 34 скилла, как устроен роутер и как поставить пак.
+- [Внедрение под ваш бизнес](https://small-business-ru.aifrontier.tech/vnedrenie.html): открытые скиллы берутся сами, пак под отрасль и коннекторы это работа лаборатории.
+
+## Разборы
+
+- [Как проверить контрагента по ИНН перед сделкой](https://small-business-ru.aifrontier.tech/kak-proverit-kontragenta-po-inn.html): ЕГРЮЛ, ФССП, суды, банкротства и почему нельзя верить одному агрегатору. Скилл counterparty-guard.
+- [Сроки уплаты УСН в 2026 году](https://small-business-ru.aifrontier.tech/sroki-uplaty-usn-2026.html): квартальные авансы, фиксированные взносы ИП, дополнительный 1% с дохода. Скилл tax-calendar-proactive.
+- [Порог НДС на УСН 20 млн](https://small-business-ru.aifrontier.tech/nds-usn-porog-20-millionov.html): что меняется после порога и какую ставку выбрать.
+- [Работа с дебиторской задолженностью](https://small-business-ru.aifrontier.tech/rabota-s-debitorskoy-zadolzhennostyu.html): пять ступеней напоминаний по сроку просрочки, тон под историю платежей, досудебная претензия как крайняя мера. Скилл invoice-chase.
+
+## Прочее
+
+- [Лаборатория AI Frontier](https://aifrontier.tech/sistemy/small-business-ru/): описание системы и её границ.
+- [Все проекты автора](https://ilyautov.github.io/): витрина из 21 открытого проекта.
