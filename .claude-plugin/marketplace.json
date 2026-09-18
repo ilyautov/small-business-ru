@@ -26,6 +26,12 @@
       "source": { "source": "github", "repo": "ilyautov/marketplaces-mcp-ru", "ref": "v0.3.2" },
       "description": "Пять MCP-серверов над Seller API Wildberries (307 методов), Ozon (441), Ozon Performance (45), Яндекс Маркета (165) и Авито (64), всего 1022 метода: продажи, остатки, цены, финансы, отзывы напрямую из API, safety-гейт на запись, мультикабинет. | Wildberries, Ozon, Yandex Market and Avito seller APIs over MCP.",
       "category": "productivity"
+    },
+    {
+      "name": "inn-check-ru",
+      "source": { "source": "github", "repo": "ilyautov/inn-check-ru", "ref": "v1.0.0" },
+      "description": "Проверка контрагента по ИНН: quick-scan по deal-killer-сигналам за минуты, полное досье по запросу, светофор 🟢/🟡/🔴 с рекомендацией «отсрочка / предоплата / избегать». Каноническая версия скилла counterparty-guard — живёт в отдельном репозитории. | Counterparty due-diligence by INN over open registries.",
+      "category": "business"
     }
   ]
 }
