@@ -29,7 +29,7 @@
     },
     {
       "name": "inn-check-ru",
-      "source": { "source": "github", "repo": "ilyautov/inn-check-ru", "ref": "v1.0.0" },
+      "source": { "source": "github", "repo": "ilyautov/inn-check-ru", "ref": "v1.3.1" },
       "description": "Проверка контрагента по ИНН: quick-scan по deal-killer-сигналам за минуты, полное досье по запросу, светофор 🟢/🟡/🔴 с рекомендацией «отсрочка / предоплата / избегать». Каноническая версия скилла counterparty-guard — живёт в отдельном репозитории. | Counterparty due-diligence by INN over open registries.",
       "category": "business"
     }
