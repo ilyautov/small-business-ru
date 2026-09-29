@@ -2,7 +2,7 @@
 name: plan-payroll
 description: >
   Прогнозирует деньги, ранжирует просроченные счета, готовит напоминания об оплате и считает фонд зарплаты с налогами РФ 2026 — чтобы собственник уверенно выплатил зарплату сотрудникам. Принимает необязательные аргументы горизонта и даты выплаты. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

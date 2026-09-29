@@ -2,7 +2,7 @@
 name: sales-brief
 description: >
   Выносит топовых и слабых продавцов, находит сезонные паттерны и собирает двухнедельный контент-бриф, чтобы продвигать лидеров и распродавать залежавшееся. Принимает необязательное окно обзора 30, 60 или 90 дней. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

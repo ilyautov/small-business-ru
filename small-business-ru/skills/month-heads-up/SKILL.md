@@ -2,7 +2,7 @@
 name: month-heads-up
 description: >
   Запускается 25-го числа — показывает прогноз денежного потока на ближайшие 30 дней и помечает всё, на что стоит обратить внимание до конца месяца. Принимает необязательный горизонт 30 или 60 дней. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

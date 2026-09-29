@@ -2,7 +2,7 @@
 name: run-campaign
 description: >
   Запускает маркетинговую кампанию от начала до конца — анализ продаж, контент-бриф, генерация макетов, постановка рассылки в очередь. Принимает необязательные аргументы периода и канала. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

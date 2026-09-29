@@ -2,7 +2,7 @@
 name: review-contract
 description: >
   Проверяет договор простым языком по праву РФ (ГК РФ), подсвечивает red flags с уровнями важности и собирает размеченный docx/PDF с предлагаемыми правками. Принимает путь к файлу или ID документа в ЭДО. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

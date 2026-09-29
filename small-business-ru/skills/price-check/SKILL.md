@@ -2,7 +2,7 @@
 name: price-check
 description: >
   Строит таблицу маржи по товарам и три сценарных среза цены с учётом статуса НДС, чтобы собственник увидел полную финансовую картину перед решением по цене. Принимает необязательный аргумент с названием товара. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

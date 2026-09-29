@@ -2,7 +2,7 @@
 name: customer-pulse-check
 description: >
   Сводит темы из споров по платежам, обращений CRM и выгрузок отзывов в список топ-3 решаемых проблем с черновиками ответов. Принимает необязательный аргумент даты начала. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

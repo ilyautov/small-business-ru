@@ -2,7 +2,7 @@
 name: handle-complaint
 description: >
   Обрабатывает входящую жалобу клиента от начала до конца — подтягивает контекст, готовит ответ и предлагает операционное исправление. Принимает необязательный аргумент — ID письма или обращения. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

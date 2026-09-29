@@ -2,7 +2,7 @@
 name: crm-cleanup
 description: >
   Сканирует CRM на зависшие сделки, дубли контактов и незаполненные поля, затем чинит то, что собственник одобрил. Принимает необязательный аргумент области: сделки, контакты или всё. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

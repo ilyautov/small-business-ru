@@ -2,7 +2,7 @@
 name: close-month
 description: >
   Закрывает месяц — сверяет данные бухгалтерии с эквайрингом и выписками, помечает расхождения, пишет ОПиУ-сводку, выгружает пакет закрытия. Принимает необязательные аргументы месяца и места сохранения. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

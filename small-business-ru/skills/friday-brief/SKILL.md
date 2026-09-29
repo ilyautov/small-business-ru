@@ -2,7 +2,7 @@
 name: friday-brief
 description: >
   Выдаёт пятничный пульс конца недели — выручка против прошлой недели, топ-продавцы, победы и точки наблюдения. Принимает необязательное окно обзора 7 или 14 дней. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->

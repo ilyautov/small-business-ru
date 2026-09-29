@@ -2,7 +2,7 @@
 name: call-list
 description: >
   Ранжирует топ-5 лидов, которым стоит позвонить сегодня, готовит тезисы разговора из истории переписки, бронирует время в календаре и набрасывает follow-up сообщения. Принимает необязательные аргументы количества и даты. Командная форма: вызывается по имени.
-allowed-tools: Read, WebFetch, Bash
+allowed-tools: Read, WebFetch
 ---
 
 <!-- Производное от Anthropic knowledge-work-plugins / small-business (Apache-2.0, (c) Anthropic). Локализовано под РФ, файл изменён. См. /NOTICE и /LICENSE. -->
